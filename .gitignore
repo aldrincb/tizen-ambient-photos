@@ -1,5 +1,6 @@
 # Personal / device-specific certificates & signed artifacts
 tools/samsung_cert.json
+tools/local_defaults.json
 dist/*-local-signed.wgt
 *.p12
 *.pem

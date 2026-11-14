@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="app/icon.png" width="120" style="border-radius: 24px;" alt="Ambient Photos App Icon" />
+</p>
+
 # Ambient Photos for Samsung Tizen TV
 
 A lightweight, **Chromecast Ambient Mode** experience for Samsung Tizen Smart TVs (including older models, The Serif, QLED, and Crystal UHD) powered directly by any shared **Google Photos** album.

@@ -22,6 +22,7 @@ const ROOT_DIR = path.resolve(__dirname, "..");
 const APP_DIR = path.join(ROOT_DIR, "app");
 const DIST_DIR = path.join(ROOT_DIR, "dist");
 const CERT_FILE = path.join(__dirname, "samsung_cert.json");
+const LOCAL_DEFAULTS_FILE = path.join(__dirname, "local_defaults.json");
 
 if (!TV_IP) {
   console.error("Usage: node tools/sign_and_install.js <SAMSUNG_TV_IP>");
@@ -30,12 +31,27 @@ if (!TV_IP) {
 }
 
 async function buildUnsignedWgtBuffer() {
+  let localAlbumUrl = "";
+  if (fs.existsSync(LOCAL_DEFAULTS_FILE)) {
+    try {
+      localAlbumUrl = JSON.parse(fs.readFileSync(LOCAL_DEFAULTS_FILE, "utf8")).albumUrl || "";
+    } catch (e) {}
+  }
   const zip = new JSZip();
   for (const name of fs.readdirSync(APP_DIR)) {
     if (name.startsWith(".")) continue;
     const full = path.join(APP_DIR, name);
     if (fs.statSync(full).isFile()) {
-      zip.file(name, fs.readFileSync(full));
+      let content = fs.readFileSync(full);
+      if (name === "app.js" && localAlbumUrl) {
+        content = Buffer.from(
+          content
+            .toString("utf8")
+            .replace('var DEFAULT_ALBUM_URL = "";', `var DEFAULT_ALBUM_URL = ${JSON.stringify(localAlbumUrl)};`),
+          "utf8"
+        );
+      }
+      zip.file(name, content);
     }
   }
   return await zip.generateAsync({ type: "nodebuffer", compression: "DEFLATE" });
