@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Ambient Photos — Tizen Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="stage">
+    <!-- Slide Buffer A -->
+    <div class="slide active" id="slide-a">
+      <div class="backdrop" id="backdrop-a"></div>
+      <div class="photo-frame" id="frame-a"></div>
+    </div>
+
+    <!-- Slide Buffer B -->
+    <div class="slide" id="slide-b">
+      <div class="backdrop" id="backdrop-b"></div>
+      <div class="photo-frame" id="frame-b"></div>
+    </div>
+
+    <!-- Subtle bottom vignette for Chromecast text legibility -->
+    <div class="vignette"></div>
+
+    <!-- Chromecast Ambient Overlay -->
+    <div class="ambient-hud" id="ambient-hud">
+      <div class="meta-left">
+        <div class="photo-date" id="photo-date">Loading Google Photos…</div>
+        <div class="album-subtitle">
+          <span id="album-title">Google Photos</span>
+          <span class="dot" id="sync-dot">·</span>
+          <span id="sync-status">Connecting…</span>
+        </div>
+      </div>
+
+      <div class="clock-right">
+        <div class="clock-time" id="clock-time">--:--</div>
+        <div class="clock-day" id="clock-day">---</div>
+      </div>
+    </div>
+
+    <!-- Brief Controls Toast (auto-hides on idle, shown on mouse/key press) -->
+    <div class="controls-bar" id="controls-bar">
+      <button class="ctrl-btn" id="btn-prev" title="Previous (Left Arrow)">◀ Prev</button>
+      <button class="ctrl-btn" id="btn-pause" title="Pause / Resume (Space / Play)">⏸ Pause</button>
+      <button class="ctrl-btn" id="btn-next" title="Next Shuffled Photo (Right Arrow)">Next ▶</button>
+      <button class="ctrl-btn" id="btn-reshuffle" title="Reshuffle Deck (R)">🔀 Shuffle</button>
+      <button class="ctrl-btn" id="btn-fullscreen" title="Fullscreen (F)">⛶ Fullscreen</button>
+      <button class="ctrl-btn" id="btn-settings" title="Settings (Enter / S)">⚙ Settings</button>
+    </div>
+
+    <!-- Remote-friendly Settings Modal -->
+    <div class="modal-backdrop hidden" id="settings-modal">
+      <div class="modal-card">
+        <h2>Ambient Mode Settings</h2>
+        <p class="modal-hint">Works identically on Mac &amp; Samsung Tizen TV remote</p>
+
+        <label class="field">
+          <span>Google Photos Shared Album Link (or Short Code)</span>
+          <input type="text" id="inp-album-url" placeholder="e.g. https://photos.app.goo.gl/... or just the short code" />
+        </label>
+
+        <label class="field">
+          <span>Slide Duration</span>
+          <select id="sel-interval">
+            <option value="8">8 seconds (Preview fast)</option>
+            <option value="15">15 seconds</option>
+            <option value="30" selected>30 seconds (Chromecast default)</option>
+            <option value="60">1 minute</option>
+            <option value="180">3 minutes</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Vertical (Portrait) Photos</span>
+          <select id="sel-portrait">
+            <option value="pair" selected>Pair 2 Side-by-Side (Chromecast style)</option>
+            <option value="single">Single Photo + Blurred Backdrop</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Horizontal (Landscape) Photos</span>
+          <select id="sel-landscape">
+            <option value="smart" selected>Smart Fill (Full bleed for wide shots)</option>
+            <option value="contain">Fit Entire Photo (Never crop)</option>
+          </select>
+        </label>
+
+        <div class="modal-actions">
+          <button class="btn-secondary" id="btn-cancel-settings">Close (Esc)</button>
+          <button class="btn-primary" id="btn-save-settings">Save &amp; Apply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

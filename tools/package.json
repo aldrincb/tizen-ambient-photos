@@ -1,0 +1,20 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "adbhost": "^0.0.2",
+    "jszip": "^3.10.2",
+    "node-forge": "^1.4.3",
+    "tizen": "https://github.com/reisxd/tizen.js/tarball/main",
+    "xml2js": "^0.6.2"
+  }
+}

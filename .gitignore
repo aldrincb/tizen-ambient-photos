@@ -1,0 +1,17 @@
+# Personal / device-specific certificates & signed artifacts
+tools/samsung_cert.json
+dist/*-local-signed.wgt
+*.p12
+*.pem
+*.crt
+*.cer
+*.csr
+.env
+.env.*
+
+# Dependencies & OS metadata
+node_modules/
+tools/node_modules/
+__pycache__/
+*.pyc
+.DS_Store
